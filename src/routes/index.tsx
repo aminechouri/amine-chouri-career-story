@@ -61,7 +61,7 @@ function useTyping(words: string[]) {
   const [i, setI] = useState(0);
   const [del, setDel] = useState(false);
   useEffect(() => {
-    const word = words[i % words.length];
+    const word = words[i % words.length]!;
     const t = setTimeout(() => {
       if (!del) {
         const next = word.slice(0, text.length + 1);
@@ -225,7 +225,7 @@ function About() {
 
 function Skills() {
   const keys = Object.keys(skills);
-  const [tab, setTab] = useState(keys[0]);
+  const [tab, setTab] = useState(keys[0]!);
   return (
     <section id="skills" className="mx-auto max-w-6xl px-6 py-28">
       <SectionTitle n="02" title="Compétences" />
@@ -239,7 +239,7 @@ function Skills() {
           ))}
         </div>
         <div key={tab} className="p-8 flex flex-wrap gap-3 animate-in fade-in slide-in-from-bottom-2 duration-500">
-          {skills[tab].map((s, i) => (
+          {(skills[tab] ?? []).map((s, i) => (
             <span key={s} style={{ animationDelay: `${i * 50}ms` }}
               className="animate-in fade-in zoom-in-90 fill-mode-both px-4 py-2 rounded-md border border-border font-mono text-sm hover:border-primary hover:text-primary hover:-translate-y-0.5 transition-all cursor-default">
               {s}
@@ -307,7 +307,7 @@ function Projects() {
 
 function Experience() {
   const [a, setA] = useState(0);
-  const e = experiences[a];
+  const e = experiences[a]!;
   return (
     <section id="experience" className="mx-auto max-w-6xl px-6 py-28">
       <SectionTitle n="04" title="Expérience" />
