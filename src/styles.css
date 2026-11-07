@@ -124,3 +124,41 @@
   transition: width 1.4s cubic-bezier(0.2, 0.7, 0.2, 1);
   .is-visible & { width: var(--w); }
 }
+
+:root {
+  --mac-frame: oklch(0.22 0.008 250);
+  --mac-base: oklch(0.32 0.008 250);
+}
+@utility bg-mac-frame { background: linear-gradient(180deg, var(--mac-frame), oklch(0.17 0.008 250)); }
+@utility bg-mac-base { background: linear-gradient(180deg, var(--mac-base), oklch(0.2 0.008 250)); }
+
+@keyframes orb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(80px, 60px) scale(1.1); }
+  66% { transform: translate(-60px, 40px) scale(0.95); }
+}
+@utility bg-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  animation: orb 24s ease-in-out infinite;
+}
+@keyframes drift {
+  0% { transform: translateY(20px); opacity: 0; }
+  15%, 85% { opacity: 1; }
+  100% { transform: translateY(-120px) rotate(8deg); opacity: 0; }
+}
+@utility float-token {
+  position: absolute;
+  font-size: 14px;
+  color: color-mix(in oklab, var(--primary) 18%, transparent);
+  animation: drift linear infinite;
+}
+@utility bg-parallax { transform: translateY(calc(var(--sy, 0px) * -0.15)); }
+
+@keyframes fill { from { width: 0; } to { width: 100%; } }
+@utility slide-progress { animation: fill 6s linear forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-orb, .float-token { animation: none; }
+}

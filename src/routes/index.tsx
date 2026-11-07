@@ -309,45 +309,115 @@ function Stack() {
   );
 }
 
+function ScrollProgress() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const on = () => {
+      const h = document.documentElement;
+      const p = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+      if (ref.current) ref.current.style.transform = `scaleX(${p})`;
+    };
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  return <div ref={ref} className="fixed top-0 left-0 right-0 h-[3px] z-[60] origin-left bg-gradient-to-r from-primary to-secondary scale-x-0 shadow-[0_0_12px_var(--primary)]" />;
+}
+
+const floatTokens = ["</>", "{ }", "=>", "ng", "ts", "()", "[]", "&&", "$", "#", "::", "?."];
+
+function BackgroundFx() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const on = () => { if (ref.current) ref.current.style.setProperty("--sy", `${window.scrollY}px`); };
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  return (
+    <div ref={ref} aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      <div className="bg-orb bg-primary/10 size-[520px] -top-40 -left-40" />
+      <div className="bg-orb bg-secondary/10 size-[460px] top-1/3 -right-40 [animation-delay:-8s]" />
+      <div className="bg-orb bg-primary/5 size-[400px] -bottom-40 left-1/3 [animation-delay:-14s]" />
+      <div className="absolute inset-0 bg-parallax">
+        {floatTokens.map((t, i) => (
+          <span key={i} className="float-token font-mono"
+            style={{ left: `${(i * 83) % 100}%`, top: `${(i * 47) % 100}%`, animationDelay: `${-i * 2.3}s`, animationDuration: `${18 + (i % 5) * 4}s` }}>
+            {t}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MacBook({ image, title, url }: { image: string; title: string; url: string }) {
+  return (
+    <div className="relative mx-auto w-full max-w-[640px]">
+      <div className="rounded-t-[18px] bg-mac-frame p-[2.2%] pb-[3%] shadow-2xl border border-border">
+        <div className="relative rounded-md overflow-hidden bg-background aspect-[16/10]">
+          <div className="absolute top-0 inset-x-0 z-10 flex items-center gap-1.5 px-3 h-6 bg-muted/95 border-b border-border">
+            <span className="size-2 rounded-full bg-destructive" /><span className="size-2 rounded-full bg-secondary" /><span className="size-2 rounded-full bg-primary" />
+            <span className="mx-auto px-3 rounded bg-background/70 font-mono text-[9px] text-muted-foreground truncate max-w-[60%]">{url === "#" ? "votre-projet.com" : url}</span>
+          </div>
+          <img src={image} alt={`Capture ${title}`} loading="lazy" width={1280} height={800} className="absolute inset-0 size-full object-cover object-top pt-6 hover:scale-105 transition-transform duration-[2000ms]" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-foreground/5 pointer-events-none" />
+        </div>
+        <div className="absolute top-[1.1%] left-1/2 -translate-x-1/2 size-1.5 rounded-full bg-background" />
+      </div>
+      <div className="relative h-3 md:h-4 -mx-[7%] rounded-b-[14px] bg-mac-base border border-border border-t-0">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[16%] h-1.5 rounded-b-md bg-background/40" />
+      </div>
+      <div className="mx-auto mt-1 h-4 w-[80%] rounded-full bg-primary/15 blur-xl" />
+    </div>
+  );
+}
+
 function Projects() {
-  const filters = ["all", "angular", "wordpress", "react"];
-  const [f, setF] = useState("all");
-  const list = projects.filter((p) => f === "all" || p.type === f);
-  const track = useRef<HTMLDivElement>(null);
-  const scroll = (d: number) => track.current?.scrollBy({ left: d * 340, behavior: "smooth" });
+  const [i, setI] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const n = projects.length;
+  const go = (d: number) => setI((x) => (x + d + n) % n);
+  useEffect(() => {
+    if (paused) return;
+    const t = setTimeout(() => go(1), 6000);
+    return () => clearTimeout(t);
+  }, [i, paused]);
+  const p = projects[i]!;
   return (
     <section id="projects" className="mx-auto max-w-6xl px-6 py-24">
       <SectionTitle n="03" cmd="ls ./projets --live" title="Projets live" />
-      <div className="reveal flex flex-wrap items-center justify-between gap-4 mb-6">
-        <div className="flex gap-1 rounded-lg border border-border bg-card p-1 font-mono text-xs">
-          {filters.map((x) => (
-            <button key={x} onClick={() => setF(x)} className={`px-3 py-1.5 rounded-md transition-colors ${f === x ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>{x}</button>
-          ))}
-        </div>
-        <div className="flex gap-2 font-mono">
-          <button onClick={() => scroll(-1)} aria-label="Précédent" className="size-10 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">←</button>
-          <button onClick={() => scroll(1)} aria-label="Suivant" className="size-10 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">→</button>
-        </div>
-      </div>
-      <div ref={track} className="reveal flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 no-scrollbar">
-        {list.map((p, i) => (
-          <a key={p.title} href={p.url} target="_blank" rel="noreferrer"
-            style={{ animationDelay: `${i * 70}ms` }}
-            className="group snap-start shrink-0 w-[300px] md:w-[320px] rounded-xl border border-border bg-card overflow-hidden hover:border-primary hover:-translate-y-1.5 transition-all animate-in fade-in slide-in-from-bottom-3 fill-mode-both">
-            <div className="relative aspect-[16/10] overflow-hidden">
-              <img src={p.image} alt={`Capture ${p.title}`} loading="lazy" width={1280} height={800} className="size-full object-cover group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-background/70 opacity-0 group-hover:opacity-100 transition-opacity grid place-items-center font-mono text-sm text-primary">visiter le site ↗</div>
-              <span className="absolute top-2 left-2 flex items-center gap-1.5 rounded-full bg-background/85 px-2 py-0.5 font-mono text-[10px]"><span className="size-1.5 rounded-full bg-primary animate-pulse" />LIVE</span>
+      <div className="reveal rounded-2xl border border-border bg-card/60 backdrop-blur p-6 md:p-10"
+        onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-10 items-center">
+          <div key={`m${i}`} className="animate-in fade-in zoom-in-95 slide-in-from-right-6 duration-700">
+            <MacBook image={p.image} title={p.title} url={p.url} />
+          </div>
+          <div key={`t${i}`} className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <p className="font-mono text-xs text-muted-foreground">
+              <span className="text-primary">{String(i + 1).padStart(2, "0")}</span> / {String(n).padStart(2, "0")}
+              <span className="ml-3 inline-flex items-center gap-1.5 rounded-full border border-border px-2 py-0.5"><span className="size-1.5 rounded-full bg-primary animate-pulse" />LIVE</span>
+            </p>
+            <h3 className="mt-4 text-3xl font-bold">{p.title}</h3>
+            <p className="mt-3 text-muted-foreground leading-relaxed">{p.desc}</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {p.stack.map((s) => <span key={s} className="font-mono text-xs px-2.5 py-1 rounded bg-muted text-secondary">{s}</span>)}
             </div>
-            <div className="p-4">
-              <h3 className="font-bold group-hover:text-primary transition-colors">{p.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{p.desc}</p>
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {p.stack.map((s) => <span key={s} className="font-mono text-[10px] px-2 py-0.5 rounded bg-muted text-secondary">{s}</span>)}
-              </div>
-            </div>
-          </a>
-        ))}
+            <a href={p.url} target="_blank" rel="noreferrer" className="mt-7 inline-flex font-mono text-sm px-5 py-2.5 rounded-md border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
+              visiter le site ↗
+            </a>
+          </div>
+        </div>
+        <div className="mt-10 flex items-center gap-4">
+          <button onClick={() => go(-1)} aria-label="Précédent" className="size-10 shrink-0 rounded-md border border-border font-mono hover:border-primary hover:text-primary transition-colors">←</button>
+          <div className="flex-1 flex gap-2">
+            {projects.map((x, k) => (
+              <button key={x.title} onClick={() => setI(k)} aria-label={x.title} className="group flex-1 h-1 rounded-full bg-border overflow-hidden">
+                <span className={`block h-full bg-primary ${k < i ? "w-full" : k === i ? (paused ? "w-full" : "slide-progress") : "w-0"}`} key={k === i ? `a${i}` : k} />
+              </button>
+            ))}
+          </div>
+          <button onClick={() => go(1)} aria-label="Suivant" className="size-10 shrink-0 rounded-md border border-border font-mono hover:border-primary hover:text-primary transition-colors">→</button>
+        </div>
       </div>
     </section>
   );
@@ -411,7 +481,6 @@ function Contact() {
           {copied ? "✓ copié !" : email}
         </button>
         <CvButton big />
-        <a href="tel:+21626715977" className="px-5 py-3 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">+216 26 715 977</a>
         <a href="https://www.linkedin.com/in/med-amine-chouri/" target="_blank" rel="noreferrer" className="px-5 py-3 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">LinkedIn ↗</a>
       </div>
       <p className="mt-20 font-mono text-xs text-muted-foreground">© 2026 Mohamed Amine Chouri · <span className="text-primary">exit 0</span></p>
@@ -423,6 +492,8 @@ function Index() {
   useReveal();
   return (
     <div className="relative">
+      <ScrollProgress />
+      <BackgroundFx />
       <Spotlight />
       <Nav />
       <main className="relative z-10">
