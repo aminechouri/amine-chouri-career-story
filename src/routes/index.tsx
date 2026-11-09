@@ -8,6 +8,14 @@ import holistix  from "@/assets/holistix.png";
 import kitchen  from "@/assets/kitchen.png";
 import manar  from "@/assets/manar.png";
 import marj  from "@/assets/marj.png";
+import ahmed  from "@/assets/ahmed.png";
+import china  from "@/assets/china.png";
+import traiteur  from "@/assets/traiteur.png";
+import ms  from "@/assets/ms.png";
+import magine  from "@/assets/magine.png";
+import floraison  from "@/assets/floraison.png";
+import itgate  from "@/assets/itgate.png";
+import bee  from "@/assets/bee.png";
 
 
 export const Route = createFileRoute("/")({
@@ -35,7 +43,15 @@ const projects = [
   { title: "Holistix Health", stack: ["PHP", "WooCommerce", "Stripe"], type: "wordpress", desc: "Boutique internationale, plugins sur mesure, paiements sécurisés.", url: "https://holistixhealth.tn/", image: holistix },
   { title: "Marj Luxury dates", stack: ["Angular", "NgRx", "Symfony"], type: "angular", desc: "Dashboard e-commerce avec analytics et gestion des commandes.", url: "https://marjluxurydates.com/", image: marj },
   { title: "Kitchenhaus", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://kitchenhausgcc.com/", image: kitchen },
+   { title: "Floraison", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://floraison.bio/", image: floraison },
   { title: "Clinique ElManar", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://lescliniqueselmanar.com/", image: manar },
+  { title: "Dr Suliman", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://drsulimanahmed.com/", image: ahmed },
+  { title: "China town store", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://store.chinatown.tn/", image: china },
+  { title: "Le seizieme", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://leseizieme.com.tn/", image: traiteur },
+  { title: "MS Building", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://msbuilding.com.tn/", image: ms },
+  { title: "E-magine agency", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://e-magineagency.com/", image: magine },
+  { title: "ITGate group", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://itgate-group.com/", image: itgate },
+  { title: "Bee Studio", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://beestudiocommunication.com/", image: bee },
 
 ];
 
