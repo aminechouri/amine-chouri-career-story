@@ -19,6 +19,9 @@ import bee  from "@/assets/bee.png";
 import mami  from "@/assets/mami.png";
 import bois  from "@/assets/bois.png";
 import compta  from "@/assets/compta.png";
+import baby  from "@/assets/baby.png";
+import lacroix  from "@/assets/lacroix.png";
+import matech  from "@/assets/matech.png";
 
 
 export const Route = createFileRoute("/")({
@@ -58,6 +61,9 @@ const projects = [
   { title: "MamiPropre", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://mamiepropre.com/", image: mami },
   { title: "Interbois", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://ambiance.maisoninterbois.com/", image: bois },
   { title: "Comptajobs", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://comptajobs.tn/", image: compta },
+  { title: "Matech", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://www.matech-tn.com/", image: matech },
+  { title: "Pocobaby", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://pocobaby.tn/", image: baby },
+  { title: "Lacroix", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://lacroixfils.fr/", image: lacoix },
 
 ];
 
