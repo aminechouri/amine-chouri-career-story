@@ -159,6 +159,12 @@
 @keyframes fill { from { width: 0; } to { width: 100%; } }
 @utility slide-progress { animation: fill 6s linear forwards; }
 
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes spin-rev { to { transform: rotate(-360deg); } }
+@utility orbit { animation: spin-slow var(--d, 40s) linear infinite; }
+@utility orbit-rev { animation: spin-rev var(--d, 40s) linear infinite; }
+@utility orbit-paused { &:hover, &:hover * { animation-play-state: paused; } }
+
 @media (prefers-reduced-motion: reduce) {
-  .bg-orb, .float-token { animation: none; }
+  .bg-orb, .float-token, .orbit, .orbit-rev { animation: none; }
 }
