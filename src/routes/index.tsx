@@ -213,7 +213,7 @@ function Hero() {
             ))}
           </div>
           <div className="mt-8 flex flex-wrap gap-3 font-mono text-sm">
-           
+            <CvButton big />
             <a href="#projects" className="px-6 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors">./projets-live</a>
             <a href="#contact" className="px-6 py-3 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">contact()</a>
           </div>
@@ -519,6 +519,7 @@ function Contact() {
           className="px-5 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors">
           {copied ? "✓ copié !" : email}
         </button>
+        <CvButton big />
         <a href="https://www.linkedin.com/in/med-amine-chouri/" target="_blank" rel="noreferrer" className="px-5 py-3 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">LinkedIn ↗</a>
       </div>
       <p className="mt-20 font-mono text-xs text-muted-foreground">© 2026 Mohamed Amine Chouri · <span className="text-primary">exit 0</span></p>
