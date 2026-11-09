@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import placeholder from "@/assets/project-placeholder.jpg";
+import amineImg  from "@/assets/photo.jpeg";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,8 +22,7 @@ export const Route = createFileRoute("/")({
 // Put your PDF at public/downloads/CV-Mohamed-Amine-Chouri.pdf
 const CV_URL = "/downloads/CV-Mohamed-Amine-Chouri.pdf";
 // Put your photo in src/assets and import it here, e.g. import photo from "@/assets/me.jpg"
-const PHOTO: string | null = null;
-
+const PHOTO: amineImg ;
 const projects = [
   { title: "E-commerce Angular", stack: ["Angular", "RxJS", "Node.js"], type: "angular", desc: "Plateforme e-commerce orientée composants, paiement & suivi de commandes.", url: "#", image: placeholder },
   { title: "Site vitrine EDirect", stack: ["WordPress", "GSAP", "Elementor"], type: "wordpress", desc: "Site pixel-perfect depuis Figma, animations de scroll GSAP.", url: "#", image: placeholder },
