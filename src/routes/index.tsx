@@ -16,6 +16,9 @@ import magine  from "@/assets/magine.png";
 import floraison  from "@/assets/floraison.png";
 import itgate  from "@/assets/itgate.png";
 import bee  from "@/assets/bee.png";
+import mami  from "@/assets/mami.png";
+import bois  from "@/assets/bois.png";
+import compta  from "@/assets/compta.png";
 
 
 export const Route = createFileRoute("/")({
@@ -52,6 +55,9 @@ const projects = [
   { title: "E-magine agency", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://e-magineagency.com/", image: magine },
   { title: "ITGate group", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://itgate-group.com/", image: itgate },
   { title: "Bee Studio", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://beestudiocommunication.com/", image: bee },
+  { title: "MamiPropre", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://mamiepropre.com/", image: mami },
+  { title: "Interbois", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://ambiance.maisoninterbois.com/", image: bois },
+  { title: "Comptajobs", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://comptajobs.tn/", image: compta },
 
 ];
 
