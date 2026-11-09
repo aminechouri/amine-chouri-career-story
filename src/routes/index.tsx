@@ -213,10 +213,7 @@ function Hero() {
             ))}
           </div>
           <div className="mt-8 flex flex-wrap gap-3 font-mono text-sm">
-             <button onClick={() => { navigator.clipboard.writeText(email); setCopied(true); setTimeout(() => setCopied(false), 1800); }}
-          className="px-5 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors">
-          {copied ? "✓ copié !" : email}
-        </button>
+           
             <a href="#projects" className="px-6 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors">./projets-live</a>
             <a href="#contact" className="px-6 py-3 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">contact()</a>
           </div>
