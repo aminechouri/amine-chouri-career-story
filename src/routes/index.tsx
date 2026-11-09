@@ -22,6 +22,7 @@ import compta  from "@/assets/compta.png";
 import baby  from "@/assets/baby.png";
 import lacroix  from "@/assets/lacroix.png";
 import matech  from "@/assets/matech.png";
+import bootik  from "@/assets/bootik.png";
 
 
 export const Route = createFileRoute("/")({
@@ -64,6 +65,7 @@ const projects = [
   { title: "Matech", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://www.matech-tn.com/", image: matech },
   { title: "Pocobaby", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://pocobaby.tn/", image: baby },
   { title: "Lacroix", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://lacroixfils.fr/", image: lacoix },
+  { title: "Bootik", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://bootiik.com/", image: bootik },
 
 ];
 
