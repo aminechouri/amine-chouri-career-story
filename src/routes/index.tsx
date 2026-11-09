@@ -64,7 +64,7 @@ const projects = [
   { title: "Comptajobs", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://comptajobs.tn/", image: compta },
   { title: "Matech", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://www.matech-tn.com/", image: matech },
   { title: "Pocobaby", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://pocobaby.tn/", image: baby },
-  { title: "Lacroix", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://lacroixfils.fr/", image: lacoix },
+  { title: "Lacroix", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://lacroixfils.fr/", image: lacroix },
   { title: "Bootik", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://bootiik.com/", image: bootik },
 
 ];
