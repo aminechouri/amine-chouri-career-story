@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import placeholder from "@/assets/project-placeholder.jpg";
 import amineImg  from "@/assets/photo.jpeg";
 import mysecretaire  from "@/assets/mysecretaire.png";
+import anodrra  from "@/assets/andorra.png";
 
 
 export const Route = createFileRoute("/")({
@@ -26,10 +27,12 @@ const CV_URL = "/downloads/CV-Mohamed-Amine-Chouri.pdf";
 const PHOTO = amineImg ;
 const projects = [
   { title: "Mysecretaire", stack: ["WordPress", "Css", "PHP"], type: "WordPress", desc: "Un site web vitrine pour promouvoir le télésecrétariat médical en France et pour réserver en ligne et devenir partenaire.", url: "https://www.mysecretaire.com/", image: mysecretaire },
-  { title: "Site vitrine EDirect", stack: ["WordPress", "GSAP", "Elementor"], type: "wordpress", desc: "Site pixel-perfect depuis Figma, animations de scroll GSAP.", url: "#", image: placeholder },
-  { title: "Boutique WooCommerce", stack: ["PHP", "WooCommerce", "Stripe"], type: "wordpress", desc: "Boutique internationale, plugins sur mesure, paiements sécurisés.", url: "#", image: placeholder },
-  { title: "Dashboard Admin", stack: ["Angular", "NgRx", "Symfony"], type: "angular", desc: "Dashboard e-commerce avec analytics et gestion des commandes.", url: "#", image: placeholder },
-  { title: "Landing React", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "#", image: placeholder },
+  { title: "Andorra Village", stack: ["WordPress", "GSAP", "Elementor"], type: "wordpress", desc: "Site WordPress présentant des appartements, des villas et des résidences avec services au cœur de Riyad..", url: "https://andorravillage.net/", image: anodrra },
+  { title: "Holistix Health", stack: ["PHP", "WooCommerce", "Stripe"], type: "wordpress", desc: "Boutique internationale, plugins sur mesure, paiements sécurisés.", url: "https://holistixhealth.tn/", image: placeholder },
+  { title: "Marj Luxury dates", stack: ["Angular", "NgRx", "Symfony"], type: "angular", desc: "Dashboard e-commerce avec analytics et gestion des commandes.", url: "https://marjluxurydates.com/", image: placeholder },
+  { title: "Kitchenhaus", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://kitchenhausgcc.com/", image: placeholder },
+  { title: "Clinique ElManar", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://lescliniqueselmanar.com/", image: placeholder },
+
 ];
 
 const skills = [
