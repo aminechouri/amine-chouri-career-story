@@ -4,6 +4,10 @@ import placeholder from "@/assets/project-placeholder.jpg";
 import amineImg  from "@/assets/photo.jpeg";
 import mysecretaire  from "@/assets/mysecretaire.png";
 import anodrra  from "@/assets/andorra.png";
+import holistix  from "@/assets/holistix.png";
+import kitchen  from "@/assets/kitchen.png";
+import manar  from "@/assets/manar.png";
+import marj  from "@/assets/marj.png";
 
 
 export const Route = createFileRoute("/")({
@@ -28,10 +32,10 @@ const PHOTO = amineImg ;
 const projects = [
   { title: "Mysecretaire", stack: ["WordPress", "Css", "PHP"], type: "WordPress", desc: "Un site web vitrine pour promouvoir le télésecrétariat médical en France et pour réserver en ligne et devenir partenaire.", url: "https://www.mysecretaire.com/", image: mysecretaire },
   { title: "Andorra Village", stack: ["WordPress", "GSAP", "Elementor"], type: "wordpress", desc: "Site WordPress présentant des appartements, des villas et des résidences avec services au cœur de Riyad..", url: "https://andorravillage.net/", image: anodrra },
-  { title: "Holistix Health", stack: ["PHP", "WooCommerce", "Stripe"], type: "wordpress", desc: "Boutique internationale, plugins sur mesure, paiements sécurisés.", url: "https://holistixhealth.tn/", image: placeholder },
-  { title: "Marj Luxury dates", stack: ["Angular", "NgRx", "Symfony"], type: "angular", desc: "Dashboard e-commerce avec analytics et gestion des commandes.", url: "https://marjluxurydates.com/", image: placeholder },
-  { title: "Kitchenhaus", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://kitchenhausgcc.com/", image: placeholder },
-  { title: "Clinique ElManar", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://lescliniqueselmanar.com/", image: placeholder },
+  { title: "Holistix Health", stack: ["PHP", "WooCommerce", "Stripe"], type: "wordpress", desc: "Boutique internationale, plugins sur mesure, paiements sécurisés.", url: "https://holistixhealth.tn/", image: holistix },
+  { title: "Marj Luxury dates", stack: ["Angular", "NgRx", "Symfony"], type: "angular", desc: "Dashboard e-commerce avec analytics et gestion des commandes.", url: "https://marjluxurydates.com/", image: marj },
+  { title: "Kitchenhaus", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://kitchenhausgcc.com/", image: kitchen },
+  { title: "Clinique ElManar", stack: ["React", "Tailwind"], type: "react", desc: "Landing page rapide, animée et optimisée SEO.", url: "https://lescliniqueselmanar.com/", image: manar },
 
 ];
 
