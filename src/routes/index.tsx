@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { PortfolioLanguageProvider, usePortfolioLanguage } from "@/lib/portfolio-language";
 import amineImg  from "@/assets/me.jpg";
 import mysecretaire  from "@/assets/mysecretaire.png";
 import anodrra  from "@/assets/andorra.png";
@@ -28,9 +30,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Mohamed Amine Chouri — Web Developer · 6+ ans" },
-      { name: "description", content: "Développeur web Angular / TypeScript avec 6+ ans d'expérience. Sites vitrines, e-commerce, apps sur mesure, SEO et animations." },
+      { name: "description", content: "Développeur web Angular / TypeScript avec 6+ ans d'expérience. Intégration API, automatisation IA, sites vitrines, e-commerce et apps sur mesure. API integration and AI automation." },
       { property: "og:title", content: "Mohamed Amine Chouri — Web Developer" },
-      { property: "og:description", content: "Angular, TypeScript, RxJS, React, WordPress. 6+ ans à shipper du web en production." },
+      { property: "og:description", content: "Web development, API integration & AI automation · Développement web, intégration API et automatisation IA. 6+ ans d’expérience." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -99,7 +101,8 @@ function useTyping(words: string[]) {
   const [i, setI] = useState(0);
   const [del, setDel] = useState(false);
   useEffect(() => {
-    const word = words[i % words.length]!;
+    const word = words[i % words.length];
+    if (!word) return;
     const t = setTimeout(() => {
       if (!del) {
         const n = word.slice(0, text.length + 1);
@@ -141,15 +144,19 @@ function Spotlight() {
 }
 
 function Nav() {
-  const links = ["about", "stack", "projects", "services", "experience", "contact"];
+  const { t, language, setLanguage } = usePortfolioLanguage();
+  const links = [{ id: "about", label: "à propos" }, { id: "stack", label: "stack" }, { id: "projects", label: "projets" }, { id: "services", label: "services" }, { id: "experience", label: "expérience" }, { id: "contact", label: "contact" }];
   return (
     <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
       <div className="mx-auto max-w-6xl flex items-center justify-between px-6 h-16 font-mono text-sm">
         <a href="#top" className="text-primary font-semibold">~/amine<span className="text-muted-foreground">$</span></a>
-        <div className="hidden md:flex gap-6">
+        <div className="hidden md:flex gap-4 text-xs">
           {links.map((l, i) => (
-            <a key={l} href={`#${l}`} className="text-muted-foreground hover:text-primary transition-colors"><span className="text-primary">0{i + 1}.</span>{l}</a>
+            <a key={l.id} href={`#${l.id}`} className="text-muted-foreground hover:text-primary transition-colors"><span className="text-primary">0{i + 1}.</span>{t(l.label)}</a>
           ))}
+        </div>
+        <div className="flex items-center gap-1 border-l border-border pl-3" role="group" aria-label="Language / Langue">
+          {(["fr", "en"] as const).map((lang) => <Button key={lang} variant={language === lang ? "default" : "ghost"} size="sm" onClick={() => setLanguage(lang)} aria-pressed={language === lang} aria-label={lang === "fr" ? "Français" : "English"} className="font-mono">{lang.toUpperCase()}</Button>)}
         </div>
       </div>
     </nav>
@@ -157,12 +164,13 @@ function Nav() {
 }
 
 function SectionTitle({ n, cmd, title }: { n: string; cmd: string; title: string }) {
+  const { t } = usePortfolioLanguage();
   return (
     <div className="reveal mb-10">
       <p className="font-mono text-sm text-muted-foreground"><span className="text-primary">$</span> {cmd}</p>
       <div className="flex items-center gap-4 mt-2">
         <span className="font-mono text-primary">{n}.</span>
-        <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
+        <h2 className="text-3xl md:text-4xl font-bold">{t(title)}</h2>
         <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
       </div>
     </div>
@@ -172,6 +180,7 @@ function SectionTitle({ n, cmd, title }: { n: string; cmd: string; title: string
 const bootLines = ["> npm run dev", "✓ compiled amine.portfolio in 6y", "✓ 5 companies · 20+ projects shipped", "➜ ready on http://paris.fr — 2027"];
 
 function Hero() {
+  const { t } = usePortfolioLanguage();
   const typed = useTyping(roles);
   const [lines, setLines] = useState(0);
   useEffect(() => {
@@ -185,15 +194,15 @@ function Hero() {
       <div className="relative mx-auto max-w-6xl px-6 grid lg:grid-cols-[1.25fr_1fr] gap-12 items-center w-full">
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 font-mono text-xs text-muted-foreground mb-6">
-            <span className="size-2 rounded-full bg-primary animate-pulse" /> open to work · Paris · Jan 2027
+            <span className="size-2 rounded-full bg-primary animate-pulse" /> {t("Disponible · Paris · Janvier 2027")}
           </div>
           <h1 className="text-5xl md:text-7xl font-bold leading-[1.02]">
             Mohamed Amine<br /><span className="text-gradient">Chouri</span>
           </h1>
           <p className="mt-5 font-mono text-xl md:text-2xl text-secondary h-8">&gt; <span className="caret">{typed}</span></p>
           <p className="mt-5 max-w-xl text-muted-foreground leading-relaxed">
-            <span className="text-foreground font-semibold">6+ ans</span> à concevoir et livrer des applications web scalables en production —
-            Angular, TypeScript, RxJS, e-commerce, performance & SEO.
+            <span className="text-foreground font-semibold">{t("6+ ans")}</span>{t(" à concevoir et livrer des applications web scalables en production —")}
+            {t("Angular, TypeScript, RxJS, e-commerce, performance & SEO.")}
           </p>
           <div className="mt-6 rounded-lg border border-border bg-card/70 p-4 font-mono text-xs leading-6 max-w-md min-h-[120px]">
             {bootLines.slice(0, lines).map((l, i) => (
@@ -201,7 +210,7 @@ function Hero() {
             ))}
           </div>
           <div className="mt-8 flex flex-wrap gap-3 font-mono text-sm">
-            <a href="#projects" className="px-6 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors">./projets-live</a>
+            <a href="#projects" className="px-6 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors">{t("./projets-live")}</a>
             <a href="#contact" className="px-6 py-3 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">contact()</a>
           </div>
         </div>
@@ -212,11 +221,14 @@ function Hero() {
 }
 
 function Photo() {
+  const { t } = usePortfolioLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const onMove = (e: React.MouseEvent) => {
-    const r = ref.current!.getBoundingClientRect();
+    const element = ref.current;
+    if (!element) return;
+    const r = element.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-    ref.current!.style.transform = `perspective(900px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`;
+    element.style.transform = `perspective(900px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`;
   };
   return (
     <div className="relative mx-auto w-full max-w-sm animate-float">
@@ -234,7 +246,7 @@ function Photo() {
             <div className="absolute inset-0 grid place-items-center grid-bg">
               <div className="text-center font-mono">
                 <div className="mx-auto size-24 rounded-full border-2 border-dashed border-primary grid place-items-center text-3xl text-primary">MA</div>
-                <p className="mt-4 text-xs text-muted-foreground">// ta photo ici</p>
+                <p className="mt-4 text-xs text-muted-foreground">{t('// ta photo ici')}</p>
               </div>
             </div>
           )}
@@ -244,7 +256,7 @@ function Photo() {
         </div>
       </div>
       <div className="absolute -left-6 top-16 rounded-md border border-border bg-card px-3 py-2 font-mono text-xs shadow-lg hidden sm:block">
-        <span className="text-primary text-lg font-bold">6+</span> years
+        <span className="text-primary text-lg font-bold">6+</span>{t("années")}
       </div>
       <div className="absolute -right-4 bottom-24 rounded-md border border-border bg-card px-3 py-2 font-mono text-xs shadow-lg hidden sm:block">
         &lt;<span className="text-secondary">Angular</span> /&gt;
@@ -265,16 +277,18 @@ function Marquee() {
 }
 
 function Stat({ n, suffix, label, run }: { n: number; suffix: string; label: string; run: boolean }) {
+  const { t } = usePortfolioLanguage();
   const v = useCounter(n, run);
   return (
     <div className="rounded-lg border border-border bg-card p-5 hover:border-primary hover:-translate-y-1 transition-all">
       <div className="text-4xl font-bold text-gradient">{v}{suffix}</div>
-      <div className="mt-1 font-mono text-xs text-muted-foreground">{label}</div>
+      <div className="mt-1 font-mono text-xs text-muted-foreground">{t(label)}</div>
     </div>
   );
 }
 
 function About() {
+  const { t } = usePortfolioLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const [run, setRun] = useState(false);
   useEffect(() => {
@@ -292,10 +306,10 @@ function About() {
           <p className="pl-4">title: <span className="text-primary">"Web Developer · Frontend Angular"</span>;</p>
           <p className="pl-4">experience: <span className="text-primary">"6+ years"</span>;</p>
           <p className="pl-4">focus: [<span className="text-primary">"scalable UI"</span>, <span className="text-primary">"performance"</span>, <span className="text-primary">"e-commerce"</span>];</p>
-          <p className="pl-4">education: <span className="text-primary">"Ingénieur génie logiciel (EPI, 2023)"</span>;</p>
-          <p className="pl-4">languages: {"{"} fr: <span className="text-primary">"B2"</span>, en: <span className="text-primary">"B2"</span>, de: <span className="text-primary">"B1"</span>, ar: <span className="text-primary">"natif"</span> {"}"};</p>
+          <p className="pl-4">education: <span className="text-primary">"{t("Ingénieur génie logiciel (EPI, 2023)")}"</span>;</p>
+          <p className="pl-4">languages: {"{"} fr: <span className="text-primary">"B2"</span>, en: <span className="text-primary">"B2"</span>, de: <span className="text-primary">"B1"</span>, ar: <span className="text-primary">"{t("natif")}"</span> {"}"};</p>
           <p className="pl-4">location: <span className="text-primary">"Sousse → Paris"</span>;</p>
-          <p className="pl-4 text-muted-foreground">// sponsoring requis : visa salarié / Passeport Talent</p>
+          <p className="pl-4 text-muted-foreground">{t('// sponsoring requis : visa salarié / Passeport Talent')}</p>
           <p>{"}"}</p>
         </div>
         <div ref={ref} className="reveal grid grid-cols-2 gap-4 content-start">
@@ -310,6 +324,7 @@ function About() {
 }
 
 function Stack() {
+  const { t } = usePortfolioLanguage();
   return (
     <section id="stack" className="mx-auto max-w-6xl px-6 py-24">
       <SectionTitle n="02" cmd="npm ls --depth=0" title="Stack technique" />
@@ -377,6 +392,7 @@ function BackgroundFx() {
 }
 
 function MacBook({ image, title, url }: { image: string; title: string; url: string }) {
+  const { t } = usePortfolioLanguage();
   return (
     <div className="relative mx-auto w-full max-w-[640px]">
       <div className="rounded-t-[18px] bg-mac-frame p-[2.2%] pb-[3%] shadow-2xl border border-border">
@@ -385,7 +401,7 @@ function MacBook({ image, title, url }: { image: string; title: string; url: str
             <span className="size-2 rounded-full bg-destructive" /><span className="size-2 rounded-full bg-secondary" /><span className="size-2 rounded-full bg-primary" />
             <span className="mx-auto px-3 rounded bg-background/70 font-mono text-[9px] text-muted-foreground truncate max-w-[60%]">{url === "#" ? "votre-projet.com" : url}</span>
           </div>
-          <img src={image} alt={`Capture ${title}`} loading="lazy" width={1280} height={800} className="absolute inset-0 size-full object-cover object-top pt-6 hover:scale-105 transition-transform duration-[2000ms]" />
+          <img src={image} alt={`${t("Capture")} ${title}`} loading="lazy" width={1280} height={800} className="absolute inset-0 size-full object-cover object-top pt-6 hover:scale-105 transition-transform duration-[2000ms]" />
           <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-foreground/5 pointer-events-none" />
         </div>
         <div className="absolute top-[1.1%] left-1/2 -translate-x-1/2 size-1.5 rounded-full bg-background" />
@@ -399,6 +415,7 @@ function MacBook({ image, title, url }: { image: string; title: string; url: str
 }
 
 function Projects() {
+  const { t } = usePortfolioLanguage();
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
   const n = projects.length;
@@ -408,7 +425,8 @@ function Projects() {
     const t = setTimeout(() => go(1), 6000);
     return () => clearTimeout(t);
   }, [i, paused]);
-  const p = projects[i]!;
+  const p = projects[i];
+  if (!p) return null;
   return (
     <section id="projects" className="mx-auto max-w-6xl px-6 py-24">
       <SectionTitle n="03" cmd="ls ./projets --live" title="Projets live" />
@@ -424,7 +442,7 @@ function Projects() {
               <span className="ml-3 inline-flex items-center gap-1.5 rounded-full border border-border px-2 py-0.5"><span className="size-1.5 rounded-full bg-primary animate-pulse" />LIVE</span>
             </p>
             <h3 className="mt-4 text-3xl font-bold">{p.title}</h3>
-            <p className="mt-3 text-muted-foreground leading-relaxed">{p.desc}</p>
+            <p className="mt-3 text-muted-foreground leading-relaxed">{t(p.desc)}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {p.stack.map((s) => <span key={s} className="font-mono text-xs px-2.5 py-1 rounded bg-muted text-secondary">{s}</span>)}
             </div>
@@ -434,7 +452,7 @@ function Projects() {
           </div>
         </div>
         <div className="mt-10 flex items-center gap-4">
-          <button onClick={() => go(-1)} aria-label="Précédent" className="size-10 shrink-0 rounded-md border border-border font-mono hover:border-primary hover:text-primary transition-colors">←</button>
+          <button onClick={() => go(-1)} aria-label={t("Précédent")} className="size-10 shrink-0 rounded-md border border-border font-mono hover:border-primary hover:text-primary transition-colors">←</button>
           <div className="flex-1 flex gap-2">
             {projects.map((x, k) => (
               <button key={x.title} onClick={() => setI(k)} aria-label={x.title} className="group flex-1 h-1 rounded-full bg-border overflow-hidden">
@@ -442,7 +460,7 @@ function Projects() {
               </button>
             ))}
           </div>
-          <button onClick={() => go(1)} aria-label="Suivant" className="size-10 shrink-0 rounded-md border border-border font-mono hover:border-primary hover:text-primary transition-colors">→</button>
+          <button onClick={() => go(1)} aria-label={t("Suivant")} className="size-10 shrink-0 rounded-md border border-border font-mono hover:border-primary hover:text-primary transition-colors">→</button>
         </div>
       </div>
     </section>
@@ -451,6 +469,8 @@ function Projects() {
 
 /* ---------- Services & capacités (clients / freelance) ---------- */
 const services = [
+  { icon: "{↔}", title: "Intégration d’API & systèmes connectés", desc: "Connectez votre site à vos outils : CRM, paiements, réservation, ERP et services tiers. Des données synchronisées, moins de ressaisie et un parcours client fluide.", tags: ["REST API", "Webhooks", "CRM", "Stripe"], meta: "sur mesure" },
+  { icon: "✧", title: "Automatisation IA & workflows", desc: "Assistants IA, chatbots, qualification de prospects, traitement de documents et tâches répétitives automatisées. Des workflows adaptés à votre activité, avec validation humaine lorsque nécessaire.", tags: ["AI assistants", "Chatbots", "Workflows", "API"], meta: "sur mesure" },
   { icon: "</>", title: "Site vitrine sur mesure", desc: "Votre marque, pas un thème. Pages claires, design unique, contenu que vous éditez vous-même.", tags: ["WordPress", "Elementor", "React"], meta: "3–10 jours" },
   { icon: "€", title: "Boutique e-commerce", desc: "Produits, panier, paiements Stripe / PayPal, taxes et livraison. Un back-office que votre équipe comprend.", tags: ["WooCommerce", "Stripe", "PHP"], meta: "2–4 semaines" },
   { icon: "ng", title: "Apps Angular / TypeScript", desc: "Dashboards, espaces clients, interfaces métier : du code typé, propre et fait pour évoluer.", tags: ["Angular", "NgRx", "RxJS"], meta: "au forfait" },
@@ -476,25 +496,26 @@ const guarantees = [
   "Communication simple, sans jargon technique",
 ];
 
-const abilities = ["Refonte de site", "Migration WordPress → React", "API & Symfony", "Shopify", "Hébergement & DNS", "Google Ads & GTM", "Multilingue FR / EN / AR", "Accessibilité"];
+const abilities = ["Intégration d’API & systèmes connectés", "Automatisation IA & workflows", "Refonte de site", "Migration WordPress → React", "API & Symfony", "Shopify", "Hébergement & DNS", "Google Ads & GTM", "Multilingue FR / EN / AR", "Accessibilité"];
 
 function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
+  const { t } = usePortfolioLanguage();
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
     e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
   };
   return (
-    <div className="reveal h-full" style={{ transitionDelay: `${i * 80}ms` }}>
+    <div className={`reveal h-full ${i < 2 ? "sm:col-span-2" : ""}`} style={{ transitionDelay: `${i * 80}ms` }}>
       <div onMouseMove={onMove}
-        className="group relative h-full overflow-hidden rounded-xl border border-border bg-card p-5 hover:border-primary/60 hover:-translate-y-1.5 hover:shadow-[0_18px_50px_-20px_color-mix(in_oklab,var(--primary)_45%,transparent)] transition-all duration-300">
+        className={`group relative h-full overflow-hidden rounded-lg border bg-card p-5 hover:border-primary/60 hover:-translate-y-1.5 transition-all duration-300 ${i < 2 ? "border-primary/50 md:p-7" : "border-border"}`}>
         <div className="svc-spot pointer-events-none absolute inset-0" />
         <div className="relative flex items-start justify-between gap-3">
           <span className="icon-lift font-mono text-xl text-primary">{s.icon}</span>
-          <span className="rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">{s.meta}</span>
+          <span className="rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">{t(s.meta)}</span>
         </div>
-        <h3 className="relative mt-4 font-semibold text-foreground">{s.title}</h3>
-        <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+        <h3 className="relative mt-4 font-semibold text-foreground">{t(s.title)}</h3>
+        <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">{t(s.desc)}</p>
         <div className="relative mt-4 flex flex-wrap gap-1.5">
           {s.tags.map((t) => <span key={t} className="rounded bg-muted px-2 py-0.5 font-mono text-[10px] text-secondary">{t}</span>)}
         </div>
@@ -504,20 +525,30 @@ function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
 }
 
 function Services() {
+  const { t } = usePortfolioLanguage();
   return (
     <section id="services" className="mx-auto max-w-6xl px-6 py-24">
-      <SectionTitle n="04" cmd="./services --client --freelance" title="Services & capacités" />
+      <SectionTitle n="04" cmd="./services --client --freelance" title="API & automatisation IA" />
       <p className="reveal -mt-4 mb-10 max-w-2xl leading-relaxed text-muted-foreground">
-        <span className="font-semibold text-foreground">6 ans, 20+ sites livrés, 5 boîtes.</span> Je pars d'un besoin métier flou
-        et j'en fais un site clair, rapide et qui convertit — de la maquette à la mise en ligne, avec un interlocuteur unique.
+        <span className="font-semibold text-foreground">{t("6 ans, 20+ sites livrés, 5 boîtes.")}</span>{t(" Je pars d'un besoin métier flou et j'en fais un site clair, rapide et qui convertit — de la maquette à la mise en ligne, avec un interlocuteur unique.")}
       </p>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="reveal mb-10 border-y border-primary/30 py-8 grid gap-6 md:grid-cols-[1.4fr_1fr]">
+        <div>
+          <h3 className="text-2xl font-semibold">{t("Connecter vos outils. Automatiser votre activité.")}</h3>
+          <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">{t("Votre site peut faire plus que présenter votre activité : connecter vos données, répondre à vos clients et automatiser les tâches qui vous prennent du temps.")}</p>
+        </div>
+        <div className="flex flex-col items-start justify-center gap-3">
+          <p className="font-mono text-xs text-secondary">{t("CRM & paiements")} → {t("Assistants & chatbots IA")} → {t("Prospects & documents")}</p>
+          <Button asChild variant="outline" className="h-auto whitespace-normal text-left border-primary text-primary"><a href="#contact">{t("Discuter de mon automatisation")} ↗</a></Button>
+        </div>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {services.map((s, i) => <ServiceCard key={s.title} s={s} i={i} />)}
       </div>
 
       <div className="reveal mt-12 rounded-xl border border-border bg-card/60 p-6 md:p-8">
-        <p className="font-mono text-xs text-muted-foreground">// comment ça se passe, du premier message à la mise en ligne</p>
+        <p className="font-mono text-xs text-muted-foreground">{t('// comment ça se passe, du premier message à la mise en ligne')}</p>
         <div className="relative mt-8 grid gap-8 md:grid-cols-5 md:gap-5">
           <div className="absolute left-0 right-0 top-5 hidden h-px bg-border md:block" />
           <div className="line-draw absolute left-0 top-5 hidden h-px bg-gradient-to-r from-primary to-secondary md:block" />
@@ -527,9 +558,9 @@ function Services() {
                 <span className="icon-lift relative z-10 grid size-10 shrink-0 place-items-center rounded-full border border-border bg-card font-mono text-xs text-primary group-hover:border-primary">
                   {p.n}
                 </span>
-                <h4 className="font-semibold text-sm text-foreground md:mt-4">{p.t}</h4>
+                <h4 className="font-semibold text-sm text-foreground md:mt-4">{t(p.t)}</h4>
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{p.d}</p>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t(p.d)}</p>
             </div>
           ))}
         </div>
@@ -537,32 +568,32 @@ function Services() {
 
       <div className="reveal mt-6 grid gap-8 md:grid-cols-[1.15fr_1fr]">
         <div className="rounded-xl border border-border bg-card/40 p-6">
-          <p className="font-mono text-xs text-muted-foreground">// ce que vous obtenez à chaque fois</p>
+          <p className="font-mono text-xs text-muted-foreground">{t('// ce que vous obtenez à chaque fois')}</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {guarantees.map((g, i) => (
               <div key={g} className="check-pop flex items-start gap-3 text-sm text-muted-foreground" style={{ transitionDelay: `${250 + i * 90}ms` }}>
                 <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded border border-primary/40 bg-primary/15 font-mono text-[11px] text-primary">✓</span>
-                <span>{g}</span>
+                <span>{t(g)}</span>
               </div>
             ))}
           </div>
         </div>
         <div className="rounded-xl border border-border bg-card/40 p-6">
-          <p className="font-mono text-xs text-muted-foreground">// aussi dans mes cordes</p>
+          <p className="font-mono text-xs text-muted-foreground">{t('// aussi dans mes cordes')}</p>
           <div className="mt-4 flex flex-wrap gap-2">
             {abilities.map((a, i) => (
               <span key={a} className="check-pop rounded-md border border-border px-2.5 py-1 font-mono text-xs text-muted-foreground hover:border-primary hover:text-primary transition-colors" style={{ transitionDelay: `${300 + i * 60}ms` }}>
-                {a}
+                {t(a)}
               </span>
             ))}
           </div>
           <div className="mt-6 rounded-lg border border-primary/30 bg-primary/5 p-4">
             <p className="text-sm leading-relaxed text-foreground">
-              <span className="font-mono text-primary">$</span> Un projet, une refonte, un délai serré ?
-              <span className="block mt-1 text-muted-foreground">Dites-moi ce que vous voulez vendre ou simplifier — je vous dis si c'est faisable, en combien de temps et à quel prix.</span>
+              <span className="font-mono text-primary">$</span> {t("Un projet, une refonte, un délai serré ?")}
+              <span className="block mt-1 text-muted-foreground">{t("Dites-moi ce que vous voulez vendre ou simplifier — je vous dis si c'est faisable, en combien de temps et à quel prix.")}</span>
             </p>
             <a href="#contact" className="mt-4 inline-flex items-center gap-2 rounded-md border border-primary px-4 py-2 font-mono text-xs text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
-              parler de mon projet <span aria-hidden>↗</span>
+              {t("parler de mon projet")} <span aria-hidden>↗</span>
             </a>
           </div>
         </div>
@@ -572,6 +603,7 @@ function Services() {
 }
 
 function Experience() {
+  const { t } = usePortfolioLanguage();
   const [open, setOpen] = useState(0);
   return (
     <section id="experience" className="mx-auto max-w-6xl px-6 py-24">
@@ -588,7 +620,7 @@ function Experience() {
                   <span className="text-secondary text-xs">{e.hash}</span>
                 </span>
                 <span className="truncate">
-                  <span className="text-foreground">{e.role}</span>
+                  <span className="text-foreground">{t(e.role)}</span>
                   <span className="text-primary"> @{e.company}</span>
                   {i === 0 && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-primary text-primary-foreground">HEAD</span>}
                 </span>
@@ -598,7 +630,7 @@ function Experience() {
                 <div className="overflow-hidden">
                   <div className="ml-7 pl-4 border-l border-primary/40 py-3 font-sans">
                     <ul className="space-y-1.5 text-sm text-muted-foreground">
-                      {e.points.map((p) => <li key={p} className="flex gap-2"><span className="text-primary font-mono">+</span>{p}</li>)}
+                      {e.points.map((p) => <li key={p} className="flex gap-2"><span className="text-primary font-mono">+</span>{t(p)}</li>)}
                     </ul>
                     <div className="mt-3 flex flex-wrap gap-1.5 font-mono">
                       <span className="text-[10px] text-muted-foreground mr-1">{e.place}</span>
@@ -616,17 +648,18 @@ function Experience() {
 }
 
 function Contact() {
+  const { t } = usePortfolioLanguage();
   const [copied, setCopied] = useState(false);
   const email = "aminechouri.info@gmail.com";
   return (
     <section id="contact" className="mx-auto max-w-3xl px-6 py-28 text-center">
       <p className="reveal font-mono text-sm text-muted-foreground"><span className="text-primary">$</span> ssh amine@hire-me</p>
-      <h2 className="reveal mt-4 text-5xl md:text-6xl font-bold text-glow">Construisons quelque chose.</h2>
-      <p className="reveal mt-5 text-muted-foreground">Disponible pour entretiens à Paris dès janvier 2027.</p>
+      <h2 className="reveal mt-4 text-5xl md:text-6xl font-bold text-glow">{t('Construisons quelque chose.')}</h2>
+      <p className="reveal mt-5 text-muted-foreground">{t('Disponible pour entretiens à Paris dès janvier 2027.')}</p>
       <div className="reveal mt-10 flex flex-wrap justify-center gap-3 font-mono text-sm">
         <button onClick={() => { navigator.clipboard.writeText(email); setCopied(true); setTimeout(() => setCopied(false), 1800); }}
           className="px-5 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors">
-          {copied ? "✓ copié !" : email}
+          {copied ? t("✓ copié !") : email}
         </button>
         <a href="https://www.linkedin.com/in/med-amine-chouri/" target="_blank" rel="noreferrer" className="px-5 py-3 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">LinkedIn ↗</a>
       </div>
@@ -636,6 +669,10 @@ function Contact() {
 }
 
 function Index() {
+  return <PortfolioLanguageProvider><Portfolio /></PortfolioLanguageProvider>;
+}
+
+function Portfolio() {
   useReveal();
   return (
     <div className="relative">
