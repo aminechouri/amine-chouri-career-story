@@ -71,6 +71,8 @@ const english: Record<string, string> = {
   "Frontend Angular pour solutions full-stack": "Angular frontends for full-stack solutions",
   "Paiements sécurisés & chatbots automatisés": "Secure payments & automated chatbots", "Dashboards e-commerce, SEO, hébergement": "E-commerce dashboards, SEO and hosting",
   "Designs XD/Figma → HTML/CSS/JS pixel-perfect": "XD/Figma designs → pixel-perfect HTML/CSS/JS",
+  "Amélioration de la vitesse et des performances des applications web pour une meilleure expérience utilisateur. Maîtrise de Node.js et Express.": "Improving the speed and performance of web applications to provide a better user experience. Work with Nodejs, Express",
+  "Améliorez la visibilité de votre application sur les pages de recherche Google grâce à une analyse complète du trafic et optimisez ses performances et son temps de chargement pour une meilleure expérience utilisateur.":"Boost your application visibility on google search pages with full traffic analysis and upgrade your application performance and loading time for better user experience"
 };
 
 const LanguageContext = createContext({ language: "fr" as Language, setLanguage: (_: Language) => {}, t: (text: string) => text });
