@@ -69,8 +69,8 @@ const projects = [
 ];
 
 const skills = [
-  { k: "Angular", lvl: 90 }, { k: "TypeScript", lvl: 88 }, { k: "PHP / Symfony", lvl: 88 }, { k: "React / Next.js", lvl: 95 },
-  { k: "WordPress / Shopify", lvl: 75 }, { k: "Node.js / Express", lvl: 75 }, { k: "Laravel", lvl: 72 }, { k: "Git / CI/CD", lvl: 92 },
+  { k: "Angular", lvl: 90 }, { k: "TypeScript", lvl: 88 }, { k: "PHP / Symfony", lvl: 88 }, { k: "React / Next.js", lvl: 82 },
+  { k: "WordPress / Shopify", lvl: 97 }, { k: "Node.js / Express", lvl: 75 }, { k: "Laravel", lvl: 72 }, { k: "Git / CI/CD", lvl: 92 },
 ];
 const tools = ["Git", "Git Flow", "JIRA", "Agile/Scrum", "Code Review", "MySQL", "MongoDB", "Firebase", "Figma", "GSAP", "Stripe", "PayPal", "Prestashop", "Drupal", "GTM", "Google Analytics","Media query","Clik2pay","Cpanel","Search console","SEO","Google speed"];
 
