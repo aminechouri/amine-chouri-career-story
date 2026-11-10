@@ -29,7 +29,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Mohamed Amine Chouri — Web Developer · 6+ ans" },
-      { name: "description", content: "Développeur web Angular / TypeScript avec 6+ ans d'expérience. Projets live, expériences, CV à télécharger." },
+      { name: "description", content: "Développeur web Angular / TypeScript avec 6+ ans d'expérience. Sites vitrines, e-commerce, apps sur mesure, SEO et animations." },
       { property: "og:title", content: "Mohamed Amine Chouri — Web Developer" },
       { property: "og:description", content: "Angular, TypeScript, RxJS, React, WordPress. 6+ ans à shipper du web en production." },
       { property: "og:type", content: "website" },
@@ -40,8 +40,6 @@ export const Route = createFileRoute("/")({
 });
 
 /* ================= DATA (edit here) ================= */
-// Put your PDF at public/downloads/CV-Mohamed-Amine-Chouri.pdf
-const CV_URL = "/downloads/CV-Mohamed-Amine-Chouri.pdf";
 // Put your photo in src/assets and import it here, e.g. import photo from "@/assets/me.jpg"
 const PHOTO = amineImg ;
 const projects = [
@@ -143,16 +141,8 @@ function Spotlight() {
   return <div ref={ref} className="pointer-events-none fixed inset-0 z-0" />;
 }
 
-function CvButton({ big }: { big?: boolean }) {
-  return (
-    <a href={CV_URL} download className={`group inline-flex items-center gap-2 rounded-md bg-primary text-primary-foreground font-mono font-semibold glow-box hover:-translate-y-0.5 transition-transform ${big ? "px-6 py-3 text-sm" : "px-4 py-2 text-xs"}`}>
-      <span className="group-hover:translate-y-0.5 transition-transform">↓</span> cv.pdf
-    </a>
-  );
-}
-
 function Nav() {
-  const links = ["about", "stack", "projects", "experience", "contact"];
+  const links = ["about", "stack", "projects", "services", "experience", "contact"];
   return (
     <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
       <div className="mx-auto max-w-6xl flex items-center justify-between px-6 h-16 font-mono text-sm">
@@ -162,7 +152,6 @@ function Nav() {
             <a key={l} href={`#${l}`} className="text-muted-foreground hover:text-primary transition-colors"><span className="text-primary">0{i + 1}.</span>{l}</a>
           ))}
         </div>
-        <CvButton />
       </div>
     </nav>
   );
@@ -213,7 +202,6 @@ function Hero() {
             ))}
           </div>
           <div className="mt-8 flex flex-wrap gap-3 font-mono text-sm">
-            <CvButton big />
             <a href="#projects" className="px-6 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors">./projets-live</a>
             <a href="#contact" className="px-6 py-3 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">contact()</a>
           </div>
@@ -462,11 +450,133 @@ function Projects() {
   );
 }
 
+/* ---------- Services & capacités (clients / freelance) ---------- */
+const services = [
+  { icon: "</>", title: "Site vitrine sur mesure", desc: "Votre marque, pas un thème. Pages claires, design unique, contenu que vous éditez vous-même.", tags: ["WordPress", "Elementor", "React"], meta: "3–10 jours" },
+  { icon: "€", title: "Boutique e-commerce", desc: "Produits, panier, paiements Stripe / PayPal, taxes et livraison. Un back-office que votre équipe comprend.", tags: ["WooCommerce", "Stripe", "PHP"], meta: "2–4 semaines" },
+  { icon: "ng", title: "Apps Angular / TypeScript", desc: "Dashboards, espaces clients, interfaces métier : du code typé, propre et fait pour évoluer.", tags: ["Angular", "NgRx", "RxJS"], meta: "au forfait" },
+  { icon: "▲", title: "Landing pages qui convertissent", desc: "Page rapide, animée, optimisée SEO et Core Web Vitals, prête pour vos campagnes pub.", tags: ["Next.js", "Tailwind", "GSAP"], meta: "2–5 jours" },
+  { icon: "✦", title: "Animations & effet wow", desc: "Micro-interactions, scroll animé, transitions soignées : le détail qui fait rester le visiteur.", tags: ["GSAP", "CSS", "JS"], meta: "en option" },
+  { icon: "↻", title: "Maintenance & suivi", desc: "Mises à jour, sauvegardes, sécurité, hébergement, petites évolutions. Vous n'êtes jamais laissé seul.", tags: ["OVH", "Hostinger", "cPanel"], meta: "mensuel" },
+];
+
+const processSteps = [
+  { n: "01", t: "Brief & cadrage", d: "J'écoute votre besoin métier, je pose les vraies questions, je chiffre clairement." },
+  { n: "02", t: "Maquette validée", d: "Vous voyez le site avant qu'il existe. On corrige sur l'écran, pas après la facture." },
+  { n: "03", t: "Développement", d: "Code propre, responsive, animé. Avancement visible chaque semaine, pas de boîte noire." },
+  { n: "04", t: "Tests & SEO", d: "Vitesse, mobile, SEO on-page, formulaire, analytics : rien ne traîne à la mise en ligne." },
+  { n: "05", t: "Lancement & suivi", d: "Mise en ligne, formation de votre équipe, puis maintenance et évolutions." },
+];
+
+const guarantees = [
+  "Un devis clair, une date annoncée, une date tenue",
+  "100 % responsive, du petit mobile à l'écran 4K",
+  "Lighthouse ≥ 90 et SEO on-page inclus d'office",
+  "Formulaire, Google Analytics et GTM configurés",
+  "Code propre + tous les accès (domaine, hébergeur, admin)",
+  "Communication simple, sans jargon technique",
+];
+
+const abilities = ["Refonte de site", "Migration WordPress → React", "API & Symfony", "Shopify", "Hébergement & DNS", "Google Ads & GTM", "Multilingue FR / EN / AR", "Accessibilité"];
+
+function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
+  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+  };
+  return (
+    <div className="reveal h-full" style={{ transitionDelay: `${i * 80}ms` }}>
+      <div onMouseMove={onMove}
+        className="group relative h-full overflow-hidden rounded-xl border border-border bg-card p-5 hover:border-primary/60 hover:-translate-y-1.5 hover:shadow-[0_18px_50px_-20px_color-mix(in_oklab,var(--primary)_45%,transparent)] transition-all duration-300">
+        <div className="svc-spot pointer-events-none absolute inset-0" />
+        <div className="relative flex items-start justify-between gap-3">
+          <span className="icon-lift font-mono text-xl text-primary">{s.icon}</span>
+          <span className="rounded border border-border px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground">{s.meta}</span>
+        </div>
+        <h3 className="relative mt-4 font-semibold text-foreground">{s.title}</h3>
+        <p className="relative mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+        <div className="relative mt-4 flex flex-wrap gap-1.5">
+          {s.tags.map((t) => <span key={t} className="rounded bg-muted px-2 py-0.5 font-mono text-[10px] text-secondary">{t}</span>)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Services() {
+  return (
+    <section id="services" className="mx-auto max-w-6xl px-6 py-24">
+      <SectionTitle n="04" cmd="./services --client --freelance" title="Services & capacités" />
+      <p className="reveal -mt-4 mb-10 max-w-2xl leading-relaxed text-muted-foreground">
+        <span className="font-semibold text-foreground">6 ans, 20+ sites livrés, 5 boîtes.</span> Je pars d'un besoin métier flou
+        et j'en fais un site clair, rapide et qui convertit — de la maquette à la mise en ligne, avec un interlocuteur unique.
+      </p>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((s, i) => <ServiceCard key={s.title} s={s} i={i} />)}
+      </div>
+
+      <div className="reveal mt-12 rounded-xl border border-border bg-card/60 p-6 md:p-8">
+        <p className="font-mono text-xs text-muted-foreground">// comment ça se passe, du premier message à la mise en ligne</p>
+        <div className="relative mt-8 grid gap-8 md:grid-cols-5 md:gap-5">
+          <div className="absolute left-0 right-0 top-5 hidden h-px bg-border md:block" />
+          <div className="line-draw absolute left-0 top-5 hidden h-px bg-gradient-to-r from-primary to-secondary md:block" />
+          {processSteps.map((p, i) => (
+            <div key={p.n} className="group relative" style={{ transitionDelay: `${i * 90}ms` }}>
+              <div className="flex items-center gap-3 md:block">
+                <span className="icon-lift relative z-10 grid size-10 shrink-0 place-items-center rounded-full border border-border bg-card font-mono text-xs text-primary group-hover:border-primary">
+                  {p.n}
+                </span>
+                <h4 className="font-semibold text-sm text-foreground md:mt-4">{p.t}</h4>
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{p.d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="reveal mt-6 grid gap-8 md:grid-cols-[1.15fr_1fr]">
+        <div className="rounded-xl border border-border bg-card/40 p-6">
+          <p className="font-mono text-xs text-muted-foreground">// ce que vous obtenez à chaque fois</p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {guarantees.map((g, i) => (
+              <div key={g} className="check-pop flex items-start gap-3 text-sm text-muted-foreground" style={{ transitionDelay: `${250 + i * 90}ms` }}>
+                <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded border border-primary/40 bg-primary/15 font-mono text-[11px] text-primary">✓</span>
+                <span>{g}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="rounded-xl border border-border bg-card/40 p-6">
+          <p className="font-mono text-xs text-muted-foreground">// aussi dans mes cordes</p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {abilities.map((a, i) => (
+              <span key={a} className="check-pop rounded-md border border-border px-2.5 py-1 font-mono text-xs text-muted-foreground hover:border-primary hover:text-primary transition-colors" style={{ transitionDelay: `${300 + i * 60}ms` }}>
+                {a}
+              </span>
+            ))}
+          </div>
+          <div className="mt-6 rounded-lg border border-primary/30 bg-primary/5 p-4">
+            <p className="text-sm leading-relaxed text-foreground">
+              <span className="font-mono text-primary">$</span> Un projet, une refonte, un délai serré ?
+              <span className="block mt-1 text-muted-foreground">Dites-moi ce que vous voulez vendre ou simplifier — je vous dis si c'est faisable, en combien de temps et à quel prix.</span>
+            </p>
+            <a href="#contact" className="mt-4 inline-flex items-center gap-2 rounded-md border border-primary px-4 py-2 font-mono text-xs text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
+              parler de mon projet <span aria-hidden>↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Experience() {
   const [open, setOpen] = useState(0);
   return (
     <section id="experience" className="mx-auto max-w-6xl px-6 py-24">
-      <SectionTitle n="04" cmd="git log --oneline career" title="Expérience" />
+      <SectionTitle n="05" cmd="git log --oneline career" title="Expérience" />
       <div className="reveal relative rounded-xl border border-border bg-card p-2 md:p-4 font-mono">
         {experiences.map((e, i) => {
           const isOpen = open === i;
@@ -519,7 +629,6 @@ function Contact() {
           className="px-5 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors">
           {copied ? "✓ copié !" : email}
         </button>
-        <CvButton big />
         <a href="https://www.linkedin.com/in/med-amine-chouri/" target="_blank" rel="noreferrer" className="px-5 py-3 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">LinkedIn ↗</a>
       </div>
       <p className="mt-20 font-mono text-xs text-muted-foreground">© 2026 Mohamed Amine Chouri · <span className="text-primary">exit 0</span></p>
@@ -541,6 +650,7 @@ function Index() {
         <About />
         <Stack />
         <Projects />
+        <Services />
         <Experience />
         <Contact />
       </main>
