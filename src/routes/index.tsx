@@ -477,7 +477,7 @@ const services = [
   { icon: "▲", title: "Landing pages qui convertissent", desc: "Page rapide, animée, optimisée SEO et Core Web Vitals, prête pour vos campagnes pub.", tags: ["Next.js", "Tailwind", "GSAP"], meta: "2–5 jours" },
   { icon: "✦", title: "Animations & effet wow", desc: "Micro-interactions, scroll animé, transitions soignées : le détail qui fait rester le visiteur.", tags: ["GSAP", "CSS", "JS"], meta: "en option" },
   { icon: "↻", title: "Maintenance & suivi", desc: "Mises à jour, sauvegardes, sécurité, hébergement, petites évolutions. Vous n'êtes jamais laissé seul.", tags: ["OVH", "Hostinger", "cPanel"], meta: "mensuel" },
-  { icon: ">>", title: "SEO & performance", desc: "Boost your application visibility on google search pages with full traffic analysis and upgrade your application performance and loading time for better user experience.", tags: ["OVH", "Hostinger", "cPanel"], meta: "mensuel" },
+  { icon: "SEO", title: "SEO & performance", desc: "Boost your application visibility on google search pages with full traffic analysis and upgrade your application performance and loading time for better user experience.", tags: ["OVH", "Hostinger", "cPanel"], meta: "mensuel" },
   { icon: ">>", title: "Performance Optimization", desc: "Improving the speed and performance of web applications to provide a better user experience. Work with Nodejs, Express.", tags: ["OVH", "Hostinger", "cPanel"], meta: "mensuel" },
 ];
 
