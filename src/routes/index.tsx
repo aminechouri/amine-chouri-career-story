@@ -477,8 +477,8 @@ const services = [
   { icon: "▲", title: "Landing pages qui convertissent", desc: "Page rapide, animée, optimisée SEO et Core Web Vitals, prête pour vos campagnes pub.", tags: ["Next.js", "Tailwind", "GSAP"], meta: "2–5 jours" },
   { icon: "✦", title: "Animations & effet wow", desc: "Micro-interactions, scroll animé, transitions soignées : le détail qui fait rester le visiteur.", tags: ["GSAP", "CSS", "JS"], meta: "en option" },
   { icon: "↻", title: "Maintenance & suivi", desc: "Mises à jour, sauvegardes, sécurité, hébergement, petites évolutions. Vous n'êtes jamais laissé seul.", tags: ["OVH", "Hostinger", "cPanel"], meta: "mensuel" },
-  { icon: "SEO", title: "SEO & performance", desc: "Améliorez la visibilité de votre application sur les pages de recherche Google grâce à une analyse complète du trafic et optimisez ses performances et son temps de chargement pour une meilleure expérience utilisateur.", tags: ["OVH", "Hostinger", "cPanel"], meta: "mensuel" },
-  { icon: ">>", title: "Performance Optimization", desc: "Amélioration de la vitesse et des performances des applications web pour une meilleure expérience utilisateur. Maîtrise de Node.js et Express.", tags: ["OVH", "Hostinger", "cPanel"], meta: "mensuel" },
+  { icon: "SEO", title: "SEO & performance", desc: "Améliorez la visibilité de votre application sur les pages de recherche Google grâce à une analyse complète du trafic et optimisez ses performances et son temps de chargement pour une meilleure expérience utilisateur.", tags: ["semrush", "ahrefs", "GTM"], meta: "mensuel" },
+  { icon: ">>", title: "Performance Optimization", desc: "Amélioration de la vitesse et des performances des applications web pour une meilleure expérience utilisateur. Maîtrise de Node.js et Express.", tags: ["Google", "Cache", "Litespeed"], meta: "mensuel" },
 ];
 
 const processSteps = [
