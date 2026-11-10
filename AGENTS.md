@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Keep portfolio language selection in a browser-safe React context with explicit French/English copy; this keeps interactive sections in sync without translating brand names or code syntax.
