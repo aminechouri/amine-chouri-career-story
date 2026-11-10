@@ -69,10 +69,10 @@ const projects = [
 ];
 
 const skills = [
-  { k: "Angular", lvl: 95 }, { k: "TypeScript", lvl: 92 }, { k: "RxJS / NgRx", lvl: 88 }, { k: "HTML / CSS / Tailwind", lvl: 95 },
-  { k: "React / Next.js", lvl: 75 }, { k: "Node.js / Express", lvl: 75 }, { k: "PHP / Symfony", lvl: 72 }, { k: "WordPress / Shopify", lvl: 92 },
+  { k: "Angular", lvl: 90 }, { k: "TypeScript", lvl: 88 }, { k: "PHP / Symfony", lvl: 88 }, { k: "React / Next.js", lvl: 95 },
+  { k: "WordPress / Shopify", lvl: 75 }, { k: "Node.js / Express", lvl: 75 }, { k: "Laravel", lvl: 72 }, { k: "Git / CI/CD", lvl: 92 },
 ];
-const tools = ["Git", "Git Flow", "JIRA", "Agile/Scrum", "Code Review", "MySQL", "MongoDB", "Firebase", "Figma", "GSAP", "Stripe", "PayPal", "Prestashop", "Drupal", "GTM", "Google Analytics"];
+const tools = ["Git", "Git Flow", "JIRA", "Agile/Scrum", "Code Review", "MySQL", "MongoDB", "Firebase", "Figma", "GSAP", "Stripe", "PayPal", "Prestashop", "Drupal", "GTM", "Google Analytics","Media query","Clik2pay","Cpanel","Search console","SEO","Google speed"];
 
 const experiences = [
   { hash: "a7f3c21", role: "Développeur Web", company: "Bee Studio Communication", date: "2025 — now", place: "Remote", tags: ["WordPress", "PHP", "Stripe"], points: ["Cadrage client & sites sur mesure (Figma), sections JS custom", "E-commerce WordPress : hooks PHP, plugins sur mesure", "Paiements Stripe, PayPal, WooCommerce · hébergement OVH/Hostinger/GoDaddy"] },
