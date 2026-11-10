@@ -306,8 +306,8 @@ function About() {
           <p className="pl-4">title: <span className="text-primary">"Web Developer · Frontend Angular"</span>;</p>
           <p className="pl-4">experience: <span className="text-primary">"6+ years"</span>;</p>
           <p className="pl-4">focus: [<span className="text-primary">"scalable UI"</span>, <span className="text-primary">"performance"</span>, <span className="text-primary">"e-commerce"</span>];</p>
-          <p className="pl-4">education: <span className="text-primary">"Ingénieur génie logiciel (EPI, 2023)"</span>;</p>
-          <p className="pl-4">languages: {"{"} fr: <span className="text-primary">"B2"</span>, en: <span className="text-primary">"B2"</span>, de: <span className="text-primary">"B1"</span>, ar: <span className="text-primary">"natif"</span> {"}"};</p>
+          <p className="pl-4">education: <span className="text-primary">"{t("Ingénieur génie logiciel (EPI, 2023)")}"</span>;</p>
+          <p className="pl-4">languages: {"{"} fr: <span className="text-primary">"B2"</span>, en: <span className="text-primary">"B2"</span>, de: <span className="text-primary">"B1"</span>, ar: <span className="text-primary">"{t("natif")}"</span> {"}"};</p>
           <p className="pl-4">location: <span className="text-primary">"Sousse → Paris"</span>;</p>
           <p className="pl-4 text-muted-foreground">{t('// sponsoring requis : visa salarié / Passeport Talent')}</p>
           <p>{"}"}</p>
@@ -544,7 +544,7 @@ function Services() {
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {services.map((s, i) => <ServiceCard key={t(s.title)} s={s} i={i} />)}
+        {services.map((s, i) => <ServiceCard key={s.title} s={s} i={i} />)}
       </div>
 
       <div className="reveal mt-12 rounded-xl border border-border bg-card/60 p-6 md:p-8">
@@ -589,11 +589,11 @@ function Services() {
           </div>
           <div className="mt-6 rounded-lg border border-primary/30 bg-primary/5 p-4">
             <p className="text-sm leading-relaxed text-foreground">
-              <span className="font-mono text-primary">$</span> Un projet, une refonte, un délai serré ?
+              <span className="font-mono text-primary">$</span> {t("Un projet, une refonte, un délai serré ?")}
               <span className="block mt-1 text-muted-foreground">{t("Dites-moi ce que vous voulez vendre ou simplifier — je vous dis si c'est faisable, en combien de temps et à quel prix.")}</span>
             </p>
             <a href="#contact" className="mt-4 inline-flex items-center gap-2 rounded-md border border-primary px-4 py-2 font-mono text-xs text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
-              parler de mon projet <span aria-hidden>↗</span>
+              {t("parler de mon projet")} <span aria-hidden>↗</span>
             </a>
           </div>
         </div>
