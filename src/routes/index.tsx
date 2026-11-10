@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Mohamed Amine Chouri — Web Developer · 6+ ans" },
-      { name: "description", content: "Développeur web Angular / TypeScript avec 6+ ans d'expérience. Projets live, expériences, CV à télécharger." },
+      { name: "description", content: "Développeur web Angular / TypeScript avec 6+ ans d'expérience. Sites vitrines, e-commerce, apps sur mesure, SEO et animations." },
       { property: "og:title", content: "Mohamed Amine Chouri — Web Developer" },
       { property: "og:description", content: "Angular, TypeScript, RxJS, React, WordPress. 6+ ans à shipper du web en production." },
       { property: "og:type", content: "website" },
@@ -39,8 +39,6 @@ export const Route = createFileRoute("/")({
 });
 
 /* ================= DATA (edit here) ================= */
-// Put your PDF at public/downloads/CV-Mohamed-Amine-Chouri.pdf
-const CV_URL = "/downloads/CV-Mohamed-Amine-Chouri.pdf";
 // Put your photo in src/assets and import it here, e.g. import photo from "@/assets/me.jpg"
 const PHOTO = amineImg ;
 const projects = [
@@ -142,16 +140,8 @@ function Spotlight() {
   return <div ref={ref} className="pointer-events-none fixed inset-0 z-0" />;
 }
 
-function CvButton({ big }: { big?: boolean }) {
-  return (
-    <a href={CV_URL} download className={`group inline-flex items-center gap-2 rounded-md bg-primary text-primary-foreground font-mono font-semibold glow-box hover:-translate-y-0.5 transition-transform ${big ? "px-6 py-3 text-sm" : "px-4 py-2 text-xs"}`}>
-      <span className="group-hover:translate-y-0.5 transition-transform">↓</span> cv.pdf
-    </a>
-  );
-}
-
 function Nav() {
-  const links = ["about", "stack", "projects", "experience", "contact"];
+  const links = ["about", "stack", "projects", "services", "experience", "contact"];
   return (
     <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-border">
       <div className="mx-auto max-w-6xl flex items-center justify-between px-6 h-16 font-mono text-sm">
@@ -161,7 +151,6 @@ function Nav() {
             <a key={l} href={`#${l}`} className="text-muted-foreground hover:text-primary transition-colors"><span className="text-primary">0{i + 1}.</span>{l}</a>
           ))}
         </div>
-        <CvButton />
       </div>
     </nav>
   );
@@ -212,7 +201,6 @@ function Hero() {
             ))}
           </div>
           <div className="mt-8 flex flex-wrap gap-3 font-mono text-sm">
-            <CvButton big />
             <a href="#projects" className="px-6 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors">./projets-live</a>
             <a href="#contact" className="px-6 py-3 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">contact()</a>
           </div>
@@ -461,8 +449,6 @@ function Projects() {
   );
 }
 
-
-
 /* ---------- Services & capacités (clients / freelance) ---------- */
 const services = [
   { icon: "</>", title: "Site vitrine sur mesure", desc: "Votre marque, pas un thème. Pages claires, design unique, contenu que vous éditez vous-même.", tags: ["WordPress", "Elementor", "React"], meta: "3–10 jours" },
@@ -629,50 +615,6 @@ function Experience() {
   );
 }
 
-function Experience() {
-  const [open, setOpen] = useState(0);
-  return (
-    <section id="experience" className="mx-auto max-w-6xl px-6 py-24">
-      <SectionTitle n="04" cmd="git log --oneline career" title="Expérience" />
-      <div className="reveal relative rounded-xl border border-border bg-card p-2 md:p-4 font-mono">
-        {experiences.map((e, i) => {
-          const isOpen = open === i;
-          return (
-            <div key={e.hash} className="relative">
-              <button onClick={() => setOpen(isOpen ? -1 : i)}
-                className={`w-full grid grid-cols-[auto_1fr_auto] items-center gap-3 px-3 py-3 rounded-md text-left text-sm transition-colors ${isOpen ? "bg-muted" : "hover:bg-muted/50"}`}>
-                <span className="flex items-center gap-2">
-                  <span className={`size-2.5 rounded-full ${isOpen ? "bg-primary" : "bg-border"}`} />
-                  <span className="text-secondary text-xs">{e.hash}</span>
-                </span>
-                <span className="truncate">
-                  <span className="text-foreground">{e.role}</span>
-                  <span className="text-primary"> @{e.company}</span>
-                  {i === 0 && <span className="ml-2 text-[10px] px-1.5 py-0.5 rounded bg-primary text-primary-foreground">HEAD</span>}
-                </span>
-                <span className="text-xs text-muted-foreground whitespace-nowrap">{e.date} <span className="ml-1">{isOpen ? "−" : "+"}</span></span>
-              </button>
-              <div className={`grid transition-all duration-500 ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
-                <div className="overflow-hidden">
-                  <div className="ml-7 pl-4 border-l border-primary/40 py-3 font-sans">
-                    <ul className="space-y-1.5 text-sm text-muted-foreground">
-                      {e.points.map((p) => <li key={p} className="flex gap-2"><span className="text-primary font-mono">+</span>{p}</li>)}
-                    </ul>
-                    <div className="mt-3 flex flex-wrap gap-1.5 font-mono">
-                      <span className="text-[10px] text-muted-foreground mr-1">{e.place}</span>
-                      {e.tags.map((t) => <span key={t} className="text-[10px] px-2 py-0.5 rounded bg-background border border-border text-secondary">{t}</span>)}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
 function Contact() {
   const [copied, setCopied] = useState(false);
   const email = "aminechouri.info@gmail.com";
@@ -686,7 +628,6 @@ function Contact() {
           className="px-5 py-3 rounded-md border border-primary text-primary hover:bg-primary/10 transition-colors">
           {copied ? "✓ copié !" : email}
         </button>
-        <CvButton big />
         <a href="https://www.linkedin.com/in/med-amine-chouri/" target="_blank" rel="noreferrer" className="px-5 py-3 rounded-md border border-border hover:border-primary hover:text-primary transition-colors">LinkedIn ↗</a>
       </div>
       <p className="mt-20 font-mono text-xs text-muted-foreground">© 2026 Mohamed Amine Chouri · <span className="text-primary">exit 0</span></p>
@@ -708,6 +649,7 @@ function Index() {
         <About />
         <Stack />
         <Projects />
+        <Services />
         <Experience />
         <Contact />
       </main>
